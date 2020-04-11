@@ -1,7 +1,7 @@
 version: '3'
 services:
   sdk-tools:
-    container_name: sdk-tools_container
+    container_name: android_build_sdk-tools
     build: .
     image: kaihei777/android_build_docker_container:sdk-tools
     environment:

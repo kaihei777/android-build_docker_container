@@ -8,10 +8,10 @@ ARG GRADLE_VERSION="5.6.4"
 ENV DEBCONF_NOWARNINGS yes
 ENV REPO_OS_OVERRIDE "linux"
 
-RUN apt-get update --yes \
-    && apt-get autoremove --yes \
-    && apt-get install --yes wget=1.20.1-1.1 \
-    && apt-get install --yes unzip=6.0-23+deb10u1 \
+RUN apt-get update --quiet --yes \
+    && apt-get autoremove --quiet --yes \
+    && apt-get install --quiet --yes wget=1.20.1-1.1 \
+    && apt-get install --quiet --yes unzip=6.0-23+deb10u1 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip

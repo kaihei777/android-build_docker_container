@@ -1,0 +1,12 @@
+version: '3'
+services:
+  sdk-tools:
+    container_name: sdk-tools_container
+    build: .
+    image: kaihei777/android_build_docker_container:sdk-tools
+    environment:
+      ANDROID_COMPILE_SDK: "28"
+      ANDROID_BUILD_TOOLS: "28.0.3"
+      ANDROID_SDK_TOOLS: "4333796"
+      GRADLE_VERSION: "5.6.4"
+      USE_NDK: "no"

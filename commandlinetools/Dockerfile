@@ -34,12 +34,13 @@ ENV PATH $PATH:$ANDROID_SDK_ROOT/bin:$GRADLE_HOME/bin
 # agree sdkmanager licenses
 RUN mkdir ~/.android && \
     touch ~/.android/repositories.cfg
-RUN yes | sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --licenses >/dev/null
+RUN yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses >/dev/null
 
 
-RUN sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
-RUN sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
-RUN sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "platform-tools" >/dev/null
+RUN sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
+RUN sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
+RUN sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools" >/dev/null
 RUN if [ "${USE_NDK}" = "yes" ]; then \
-      RUN sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "ndk-bundle" >/dev/null; \
+      RUN yes | sdkmanager --sdk_root=${ANDROID_HOME} "ndk-bundle" >/dev/null; \
     fi
+

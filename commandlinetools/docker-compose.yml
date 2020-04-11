@@ -1,0 +1,12 @@
+version: '3'
+services:
+  commandlinetools:
+    container_name: android_build_commandlinetools
+    build: .
+    image: kaihei777/android_build_docker_container:commandlinetools
+    environment:
+      ANDROID_COMPILE_SDK: "28"
+      ANDROID_BUILD_TOOLS: "28.0.3"
+      ANDROID_SDK_TOOLS: "6200805"
+      GRADLE_VERSION: "5.6.4"
+      USE_NDK: "no"

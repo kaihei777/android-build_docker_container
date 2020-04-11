@@ -2,11 +2,8 @@
 FROM openjdk:8-jdk-slim
 
 # args default
-ARG ANDROID_COMPILE_SDK="28"
-ARG ANDROID_BUILD_TOOLS="28.0.3"
 ARG ANDROID_SDK_TOOLS="4333796"
 ARG GRADLE_VERSION="5.6.4"
-ARG USE_NDK="no"
 
 ENV DEBCONF_NOWARNINGS yes
 ENV REPO_OS_OVERRIDE "linux"
@@ -21,7 +18,6 @@ RUN wget --quiet --output-document=android-sdk.zip https://dl.google.com/android
 RUN unzip -q -d android-sdk-linux android-sdk.zip
 RUN rm -rf android-sdk.zip
 
-
 RUN wget --quiet --output-document=gradle-bin.zip https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
 RUN unzip -q -d gradle gradle-bin.zip
 RUN rm -rf gradle-bin.zip
@@ -35,11 +31,3 @@ ENV PATH $PATH:$ANDROID_SDK_ROOT/bin:$GRADLE_HOME/bin
 RUN mkdir ~/.android && \
     touch ~/.android/repositories.cfg
 RUN yes | sdkmanager --licenses >/dev/null
-
-
-RUN sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
-RUN sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
-RUN sdkmanager "platform-tools" >/dev/null
-RUN if [ "${USE_NDK}" = "yes" ]; then \
-      RUN sdkmanager "ndk-bundle" >/dev/null; \
-    fi

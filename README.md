@@ -6,9 +6,9 @@ https://hub.docker.com/r/kaihei777/android_build_docker_container
 
 ## Supported tags
 
-- kaihei777/android_build_docker_container:sdk-tools: this image is Debian-based and includes default command line tools of Android SDK toools (sdk-tools-linux) as well as all additional components(gradle, build-tools, platforms, platform-tools).
+- kaihei777/android_build_docker_container:sdk-tools: this image is Debian-based and includes default command line tools of Android SDK toools (sdk-tools-linux) as well as all additional components(gradle).
 
-- kaihei777/android_build_docker_container:commandlinetools: this image is Debian-based and includes default command line tools of Android SDK toools (commandlinetools-linux) as well as all additional components(gradle, build-tools, platforms, platform-tools).
+- kaihei777/android_build_docker_container:commandlinetools: this image is Debian-based and includes default command line tools of Android SDK toools (commandlinetools-linux) as well as all additional components(gradle).
 
 → Check out Docker Hub for available tags.
 
@@ -29,14 +29,10 @@ docker pull kaihei777/android_build_docker_container:commandlinetools
 ### sdk-tools tag
 - sdk-tools-linux:4333796
 - gradle:5.6.4
-- build-tools:28.0.3
-- platforms & platform-tools:android-28
 
 ### commandlinetools tag
 - commandlinetools-linux:6200805
 - gradle:5.6.4
-- build-tools:28.0.3
-- platforms & platform-tools:android-28
 
 → Check out Docker Hub for Dockerfile.
 
@@ -48,9 +44,6 @@ docker pull kaihei777/android_build_docker_container:commandlinetools
 image: kaihei777/android_build_docker_container:sdk-tools
 
 variables:
-  ANDROID_COMPILE_SDK: "28"
-  ANDROID_BUILD_TOOLS: "28.0.3"
-  ANDROID_SDK_TOOLS:   "4333796"
   ARTIFACTS_NAME: "android_app_$CI_PIPELINE_ID"
   ARTIFACTS_DIR: "app/build/outputs"
 
@@ -109,13 +102,6 @@ services:
   build:
     container_name: android_app_build_sdk-tools
     image: kaihei777/android_build_docker_container:sdk-tools
-    build: .
-    environment:
-      ANDROID_COMPILE_SDK: "28"
-      ANDROID_BUILD_TOOLS: "28.0.3"
-      ANDROID_SDK_TOOLS: "4333796"
-      GRADLE_VERSION: "5.6.4"
-      USE_NDK: "no"
     volumes:
       - ../../:/var/build
     working_dir: /var/build

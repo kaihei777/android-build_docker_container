@@ -2,7 +2,7 @@
 FROM openjdk:8-jdk-slim
 
 # args default
-ARG ANDROID_SDK_TOOLS="4333796"
+ARG ANDROID_SDK_TOOLS="6200805"
 ARG GRADLE_VERSION="5.6.4"
 ARG ANDROID_BUILD_TOOLS="28.0.3"
 ARG USE_NDK="no"
@@ -16,7 +16,7 @@ RUN apt-get update --quiet --yes \
     && apt-get install --quiet --yes unzip=6.0-23+deb10u1 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip
+RUN wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
 RUN unzip -q -d android-sdk-linux android-sdk.zip
 RUN rm -rf android-sdk.zip
 
@@ -32,11 +32,11 @@ ENV PATH $PATH:$ANDROID_SDK_ROOT/bin:$GRADLE_HOME/bin
 # agree sdkmanager licenses
 RUN mkdir ~/.android && \
     touch ~/.android/repositories.cfg
-RUN yes | sdkmanager --licenses >/dev/null
+RUN yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses >/dev/null
 
-RUN sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
-RUN ANDROID_COMPILE_SDK="${ANDROID_BUILD_TOOLS%%.*}"; sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
-RUN sdkmanager "platform-tools" >/dev/null
+RUN sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
+RUN ANDROID_COMPILE_SDK="${ANDROID_BUILD_TOOLS%%.*}"; sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
+RUN sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools" >/dev/null
 RUN if [ "${USE_NDK}" = "yes" ]; then \
-      sdkmanager "ndk-bundle" >/dev/null; \
+      sdkmanager --sdk_root=${ANDROID_HOME} "ndk-bundle" >/dev/null; \
     fi

@@ -8,3 +8,7 @@ services:
       args:
         ANDROID_SDK_TOOLS: "4333796"
         GRADLE_VERSION: "5.6.4"
+    volumes:
+      - ../BasicSample/:/var/build
+    working_dir: /var/build
+    command: gradle --no-build-cache --stacktrace :app:build

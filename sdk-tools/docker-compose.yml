@@ -11,4 +11,4 @@ services:
     volumes:
       - ../BasicSample/:/var/build
     working_dir: /var/build
-    command: gradle --no-build-cache --stacktrace :app:build
+    command: gradle test

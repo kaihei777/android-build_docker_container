@@ -6,5 +6,6 @@ stages:
 debugTests:
   stage: test
   script:
-    - gradle test
+    - cd sdk-tools
+    - docker-compose up
   when: manual

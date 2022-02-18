@@ -25,9 +25,8 @@ RUN unzip -q -d gradle gradle-bin.zip
 RUN rm -rf gradle-bin.zip
 
 ENV ANDROID_HOME $PWD/android-sdk-linux
-ENV ANDROID_SDK_ROOT $ANDROID_HOME/cmdline-tools
 ENV GRADLE_HOME $PWD/gradle/gradle-${GRADLE_VERSION}
-ENV PATH $PATH:$ANDROID_SDK_ROOT/bin:$GRADLE_HOME/bin
+ENV PATH $PATH:$ANDROID_HOME/cmdline-tools/bin:$GRADLE_HOME/bin
 
 # agree sdkmanager licenses
 RUN mkdir ~/.android && \
